@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS zinio_db_test;
+GRANT ALL PRIVILEGES ON zinio_db_test.* TO 'root' IDENTIFIED BY 'root';

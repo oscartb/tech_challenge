@@ -1,0 +1,68 @@
+version: '3.0'
+
+services:
+  zinio-web:
+    container_name: zinio-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - "260:80"
+    volumes:
+      - ../Code/public:/appdata/www/public
+    depends_on:
+      - zinio-be
+    networks:
+      - zinio-network
+
+  zinio-be:
+    container_name: zinio-be
+    build:
+      context: ./docker/php
+      args:
+        UID: $U_ID
+      ###> XDEBUG 3 ###
+      # Use your client IP here
+      # Linux: run "ip a | grep docker0"
+      # Windows (with WSL2): Run "grep nameserver /etc/resolv.conf  | cut -d ' ' -f2"
+      # MacOS: host.docker.internal
+      ###< XDEBUG 3 ###
+    environment:
+      XDEBUG_CLIENT_HOST: 172.22.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=Docker
+    volumes:
+      - ../Code/:/appdata/www
+      #      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./docker/php/xdebug-macos.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - zinio-db
+    networks:
+      - zinio-network
+
+  zinio-db:
+    container_name: zinio-db
+    build:
+      context: ./docker/database
+    ports:
+      - "3666:3306"
+    environment:
+      MYSQL_DATABASE: symfonyos_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
+    volumes:
+      - zinio-db-data:/var/lib/mysql
+    networks:
+      - zinio-network
+      - zinio_network
+
+volumes:
+  zinio-db-data:
+
+networks:
+  zinio_network:
+    driver:  bridge

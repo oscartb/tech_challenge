@@ -1,0 +1,3 @@
+controllers:
+  resource: ../../src/Infrastructure/UI/RestAPI/Controller/
+  type: annotation

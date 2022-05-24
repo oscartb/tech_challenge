@@ -1,0 +1,7 @@
+.idea
+./SymfonyOS/.idea
+Infrastructure/docker-compose.yml
+*.local
+Infrastructure/elklogs/*
+./logs/*
+SymfonyOS/logs/*
