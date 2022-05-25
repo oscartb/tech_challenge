@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Domain\CardGame\Card;
+use App\Domain\CardGame\Entity\Card;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\Dictionary;

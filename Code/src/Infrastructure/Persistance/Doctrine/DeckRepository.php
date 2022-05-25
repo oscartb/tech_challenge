@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Persistance\Doctrine;
 
-use App\Domain\CardGame\Deck;
+use App\Domain\CardGame\Entity\Deck;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

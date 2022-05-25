@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\CardGame;
+namespace App\Domain\CardGame\Entity;
 
 use App\Domain\Shared\ValueObject\Uuid;
 use App\Infrastructure\Persistance\Doctrine\DeckRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use \App\Domain\CardGame\Card;
+use App\Domain\CardGame\Entity\Card;
 
 /**
  * @ORM\Entity(repositoryClass=DeckRepository::class)
@@ -50,6 +50,17 @@ class Deck
     {
         if (!$this->cards->contains($card)) {
             $this->cards[] = $card;
+        }
+
+        return $this;
+    }
+
+    public function addCards(array $cards): self
+    {
+        foreach($cards as $card) {
+            if (!$this->cards->contains($card)) {
+                $this->cards[] = $card;
+            }
         }
 
         return $this;

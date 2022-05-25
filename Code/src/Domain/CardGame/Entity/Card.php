@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\CardGame;
+namespace App\Domain\CardGame\Entity;
 
 use App\Domain\Shared\ValueObject\Uuid;
 use App\Infrastructure\Persistance\Doctrine\CardRepository;
@@ -53,7 +53,7 @@ class Card
         $this->decks = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         $uuid = new Uuid($this->id);
         return $uuid->value();
