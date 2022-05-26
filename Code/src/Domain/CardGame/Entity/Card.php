@@ -2,6 +2,8 @@
 
 namespace App\Domain\CardGame\Entity;
 
+use App\Domain\CardGame\DomainEvent\CardCreatedDomainEvent;
+use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Domain\Shared\ValueObject\Uuid;
 use App\Infrastructure\Persistance\Doctrine\CardRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CardRepository::class)
  */
-class Card
+class Card extends AggregateRoot
 {
     /**
      * @ORM\Id
@@ -51,6 +53,23 @@ class Card
         $this->damage = $damage;
         $this->HP = $hp;
         $this->decks = new ArrayCollection();
+    }
+
+    public static function create(
+        string $name,
+        int $damage,
+        int $hp
+    ): Card
+    {
+        $card = new self($name, $damage, $hp);
+
+        $card->record(
+            new CardCreatedDomainEvent(
+                $card->getId(), $card->getName(), $card->getDamage(), $card->getHP()
+            )
+        );
+
+        return $card;
     }
 
     public function getId(): ?string

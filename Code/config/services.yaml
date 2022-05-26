@@ -22,14 +22,12 @@ services:
         # all services implementing the CommandHandlerInterface
         # will be registered on the command.bus bus
         App\Domain\Shared\Bus\Command\CommandHandler:
-            tags:
-                - { name: app.command_handler, bus: command.bus }
+            tags: ['app.command_handler']
 
         # while those implementing QueryHandlerInterface will be
         # registered on the query.bus bus
         App\Domain\Shared\Bus\Query\QueryHandler:
-            tags:
-                - { name: app.query_handler, bus: query.bus }
+            tags: ['app.query_handler']
 
     # Command/Query Handlers
     App\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
@@ -37,3 +35,6 @@ services:
 
     App\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
         arguments: [!tagged app.query_handler]
+
+    App\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
+        arguments: [!tagged app.domain_event_subscriber]
