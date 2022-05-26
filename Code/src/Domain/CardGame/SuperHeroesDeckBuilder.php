@@ -2,8 +2,6 @@
 
 namespace App\Domain\CardGame;
 
-use DeckBuilder;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Domain\CardGame\Entity\Deck;
 use App\Domain\CardGame\Entity\Card;
@@ -11,7 +9,7 @@ use App\Domain\CardGame\Entity\Card;
 class SuperHeroesDeckBuilder implements DeckBuilder
 {
 
-    private EntityManager $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
