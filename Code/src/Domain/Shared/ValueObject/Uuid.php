@@ -15,6 +15,11 @@ class Uuid implements Stringable
         $this->ensureIsValidUuid($value);
     }
 
+    public static function getBytes(string $uuid)
+    {
+        $uuid = RamseyUuid::fromString($uuid);
+    }
+
     public static function random(): self
     {
         return new static(RamseyUuid::uuid4()->toString());

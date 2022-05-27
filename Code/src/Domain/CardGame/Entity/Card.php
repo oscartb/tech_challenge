@@ -3,6 +3,7 @@
 namespace App\Domain\CardGame\Entity;
 
 use App\Domain\CardGame\DomainEvent\CardCreatedDomainEvent;
+use App\Domain\CardGame\DomainEvent\CardRemovedDomainEvent;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Domain\Shared\ValueObject\Uuid;
 use App\Infrastructure\Persistance\Doctrine\CardRepository;
@@ -17,7 +18,7 @@ class Card extends AggregateRoot
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\Column(type="string", unique=true)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
@@ -70,6 +71,15 @@ class Card extends AggregateRoot
         );
 
         return $card;
+    }
+
+    public function remove()
+    {
+        $this->record(
+            new CardRemovedDomainEvent(
+                $this->getId()
+            )
+        );
     }
 
     public function getId(): ?string

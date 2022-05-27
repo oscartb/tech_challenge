@@ -16,7 +16,7 @@ class Deck
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\Column(type="string", unique=true)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
