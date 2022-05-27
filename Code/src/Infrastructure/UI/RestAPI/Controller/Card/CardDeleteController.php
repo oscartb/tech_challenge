@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardDeleteController extends ApiController
 {
     /**
-     * @Route("/api/card/deleteCard", methods={"DELETE"})
+     * @Route("/api/card", methods={"DELETE"})
      */
     public function __invoke(Request $request): Response
     {

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardPutController extends ApiController
 {
     /**
-     * @Route("/api/card/newCard", methods={"PUT"})
+     * @Route("/api/card", methods={"PUT"})
      */
     public function __invoke(Request $request): Response
     {
