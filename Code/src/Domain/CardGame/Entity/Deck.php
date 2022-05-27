@@ -2,6 +2,7 @@
 
 namespace App\Domain\CardGame\Entity;
 
+use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Domain\Shared\ValueObject\Uuid;
 use App\Infrastructure\Persistance\Doctrine\DeckRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,7 +13,7 @@ use App\Domain\CardGame\Entity\Card;
 /**
  * @ORM\Entity(repositoryClass=DeckRepository::class)
  */
-class Deck
+class Deck extends AggregateRoot
 {
     /**
      * @ORM\Id

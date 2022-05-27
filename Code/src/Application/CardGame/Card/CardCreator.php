@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\CardGame\Card\Command;
+declare(strict_types=1);
 
-use App\Domain\CardGame\DomainEvent\CardRemovedDomainEvent;
+namespace App\Application\CardGame\Card;
+
 use App\Domain\CardGame\Entity\Card;
 use App\Domain\Shared\Bus\Event\EventBus;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Domain\Shared\ValueObject\Uuid;
 
-class CardRemover
+class CardCreator
 {
 
     private EventBus $eventBus;
@@ -21,16 +21,14 @@ class CardRemover
         $this->em = $em;
     }
 
-    public function remove(string $uuid)
+    public function create(string $name, int $damage, int $HP)
     {
-        $cardRepository = $this->em->getRepository(Card::class);
-        $card = $cardRepository->findOneBy(['id' => $uuid]);
+        $card = Card::create($name, $damage, $HP);
 
-        $card->remove();
-        $this->em->remove($card);
+        $this->em->persist($card);
         $this->em->flush();
 
-        $this->eventBus->publish(...$card->pullDomainEvents());
+       $this->eventBus->publish(...$card->pullDomainEvents());
 
         return $card;
     }

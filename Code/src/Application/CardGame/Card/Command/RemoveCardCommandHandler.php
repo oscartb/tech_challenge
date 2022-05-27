@@ -2,6 +2,7 @@
 
 namespace App\Application\CardGame\Card\Command;
 
+use App\Application\CardGame\Card\CardRemover;
 use App\Domain\Shared\Bus\Command\CommandHandler;
 
 class RemoveCardCommandHandler implements CommandHandler

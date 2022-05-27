@@ -2,6 +2,7 @@
 
 namespace App\Application\CardGame\Card\Command;
 
+use App\Application\CardGame\Card\CardCreator;
 use App\Domain\Shared\Bus\Command\CommandHandler;
 
 class CreateCardCommandHandler implements CommandHandler
