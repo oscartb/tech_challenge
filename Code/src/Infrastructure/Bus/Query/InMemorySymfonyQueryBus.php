@@ -6,6 +6,7 @@ namespace App\Infrastructure\Bus\Query;
 
 use App\Domain\Shared\Bus\Query\Query;
 use App\Domain\Shared\Bus\Query\QueryBus;
+use App\Infrastructure\Bus\CallableFirstParameterExtractor;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\MessageBus;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Bus\Query;
+namespace App\Infrastructure\Bus;
 
 use App\Domain\Shared\Bus\Event\DomainEventSubscriber;
 use ReflectionClass;

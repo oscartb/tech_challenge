@@ -6,7 +6,7 @@ namespace App\Infrastructure\Bus\Command;
 
 use App\Domain\Shared\Bus\Command\Command;
 use App\Domain\Shared\Bus\Command\CommandBus;
-use App\Infrastructure\Bus\Query\CallableFirstParameterExtractor;
+use App\Infrastructure\Bus\CallableFirstParameterExtractor;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;

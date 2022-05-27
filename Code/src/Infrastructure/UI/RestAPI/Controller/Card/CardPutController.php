@@ -6,17 +6,22 @@ use App\Application\CardGame\Card\Command\CreateCardCommand;
 use App\Infrastructure\UI\RestAPI\Controller\ApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CardPutController extends ApiController
 {
-
-    public function __invoke(string $id, Request $request): Response
+    /**
+     * @Route("/api/card/newCard", methods={"PUT"})
+     */
+    public function __invoke(Request $request): Response
     {
+        $requestContent = json_decode($request->getContent());
+
         $this->dispatch(
             new CreateCardCommand(
-                $request->request->get('name'),
-                $request->request->get('damage'),
-                $request->request->get('hp')
+                $requestContent->name,
+                $requestContent->damage,
+                $requestContent->HP
             )
         );
 

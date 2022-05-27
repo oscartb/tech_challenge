@@ -6,7 +6,7 @@ namespace App\Infrastructure\Bus\Event\InMemory;
 
 use App\Domain\Shared\Bus\Event\DomainEvent;
 use App\Domain\Shared\Bus\Event\EventBus;
-use App\Infrastructure\Bus\Query\CallableFirstParameterExtractor;
+use App\Infrastructure\Bus\CallableFirstParameterExtractor;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\MessageBus;
