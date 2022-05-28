@@ -49,7 +49,7 @@ class Card extends AggregateRoot
         int $hp
     )
     {
-        $this->id = Uuid::random()->value();
+        $this->id = Uuid::random();
         $this->name = $name;
         $this->damage = $damage;
         $this->HP = $hp;
@@ -84,8 +84,7 @@ class Card extends AggregateRoot
 
     public function getId(): ?string
     {
-        $uuid = new Uuid($this->id);
-        return $uuid->value();
+        return $this->id;
     }
 
     public function getName(): ?string

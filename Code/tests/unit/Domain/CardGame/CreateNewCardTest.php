@@ -1,6 +1,6 @@
 <?php
 
-use App\Application\CardGame\Card\Command\CardCreator;
+use App\Application\CardGame\Card\CardCreator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Domain\CardGame\Entity\Card;
 use PHPUnit\Framework\Assert;
