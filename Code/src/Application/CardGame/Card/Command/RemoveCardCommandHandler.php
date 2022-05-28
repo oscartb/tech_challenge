@@ -17,7 +17,6 @@ class RemoveCardCommandHandler implements CommandHandler
     public function __invoke(RemoveCardCommand $command)
     {
         $uuid = $command->uuid();
-
         $this->cardRemover->remove($uuid);
     }
 }

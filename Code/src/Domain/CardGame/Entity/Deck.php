@@ -73,4 +73,11 @@ class Deck extends AggregateRoot
 
         return $this;
     }
+
+    public function removeAllCards(): self
+    {
+        $this->cards = new ArrayCollection();
+
+        return $this;
+    }
 }
