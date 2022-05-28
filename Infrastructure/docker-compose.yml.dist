@@ -29,8 +29,8 @@ services:
       # MacOS: host.docker.internal
       ###< XDEBUG 3 ###
     environment:
-      XDEBUG_CLIENT_HOST: 172.22.0.1
-      XDEBUG_CLIENT_PORT: 9003
+      XDEBUG_CLIENT_HOST: 172.19.0.1
+      XDEBUG_CLIENT_PORT: 9005
       PHP_IDE_CONFIG: serverName=Docker
     volumes:
       - ../Code/:/appdata/www
@@ -58,11 +58,10 @@ services:
       - zinio-db-data:/var/lib/mysql
     networks:
       - zinio-network
-      - zinio_network
 
 volumes:
   zinio-db-data:
 
 networks:
-  zinio_network:
+  zinio-network:
     driver:  bridge
