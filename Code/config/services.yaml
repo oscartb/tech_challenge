@@ -22,19 +22,22 @@ services:
         # all services implementing the CommandHandlerInterface
         # will be registered on the command.bus bus
         App\Domain\Shared\Bus\Command\CommandHandler:
-            tags: ['app.command_handler']
+            tags: [ { name: messenger.message_handler, bus: command.bus } ]
 
         # while those implementing QueryHandlerInterface will be
         # registered on the query.bus bus
         App\Domain\Shared\Bus\Query\QueryHandler:
-            tags: ['app.query_handler']
+            tags: [ { name: messenger.message_handler, bus: query.bus } ]
 
-    # Command/Query Handlers
+        App\Domain\Shared\Bus\Event\DomainEventSubscriber:
+            tags: [ { name: messenger.message_handler, bus: event.bus } ]
+
     App\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
-        arguments: [!tagged app.command_handler]
+        arguments: ['@command.bus']
 
     App\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
-        arguments: [!tagged app.query_handler]
+        arguments: ['@query.bus']
 
-    App\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
-        arguments: [!tagged app.domain_event_subscriber]
+    App\Infrastructure\Bus\Event\InMemorySymfonyEventBuss:
+        arguments: ['@event.bus']
+

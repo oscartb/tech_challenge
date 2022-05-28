@@ -6,29 +6,18 @@ namespace App\Infrastructure\Bus\Query;
 
 use App\Domain\Shared\Bus\Query\Query;
 use App\Domain\Shared\Bus\Query\QueryBus;
-use App\Infrastructure\Bus\CallableFirstParameterExtractor;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
-use Symfony\Component\Messenger\Handler\HandlersLocator;
-use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use App\Domain\Shared\Bus\Query\Response;
 
 final class InMemorySymfonyQueryBus implements QueryBus
 {
-    private MessageBus $bus;
+    private MessageBusInterface $bus;
 
-    public function __construct(iterable $queryHandlers)
-    {
-        $this->bus = new MessageBus(
-            [
-                new HandleMessageMiddleware(
-                    new HandlersLocator(CallableFirstParameterExtractor::forCallables($queryHandlers))
-                ),
-            ]
-        );
+    public function __construct(MessageBusInterface $bus) {
+        $this->bus = $bus;
     }
-
     public function ask(Query $query): ?Response
     {
         try {

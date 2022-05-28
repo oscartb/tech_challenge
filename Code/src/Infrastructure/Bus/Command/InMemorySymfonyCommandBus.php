@@ -6,26 +6,16 @@ namespace App\Infrastructure\Bus\Command;
 
 use App\Domain\Shared\Bus\Command\Command;
 use App\Domain\Shared\Bus\Command\CommandBus;
-use App\Infrastructure\Bus\CallableFirstParameterExtractor;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
-use Symfony\Component\Messenger\Handler\HandlersLocator;
-use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InMemorySymfonyCommandBus implements CommandBus
 {
-    private MessageBus $bus;
+    private MessageBusInterface $bus;
 
-    public function __construct(iterable $commandHandlers)
-    {
-        $this->bus = new MessageBus(
-            [
-                new HandleMessageMiddleware(
-                    new HandlersLocator(CallableFirstParameterExtractor::forCallables($commandHandlers))
-                ),
-            ]
-        );
+    public function __construct(MessageBusInterface $bus) {
+        $this->bus = $bus;
     }
 
     public function dispatch(Command $command): void
