@@ -15,7 +15,7 @@ class RandomizeDeck
         $this->deckBuilder = $deckBuilder;
     }
 
-    public function randomize(Deck $deck)
+    public function randomize(Deck $deck): Deck
     {
         $newDeck = $this->deckBuilder->createDeck();
         $deck->removeAllCards();
