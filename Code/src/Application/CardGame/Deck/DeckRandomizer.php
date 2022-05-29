@@ -5,6 +5,7 @@ namespace App\Application\CardGame\Deck;
 use App\Domain\CardGame\Deck\DeckNotExist;
 use App\Domain\CardGame\Deck\RandomizeDeck;
 use App\Domain\CardGame\Entity\Deck;
+use App\Infrastructure\Persistance\Doctrine\DeckRepository;
 use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
 
 class DeckRandomizer
@@ -12,17 +13,18 @@ class DeckRandomizer
 
     private AppEntityManager $em;
     private RandomizeDeck $randomizeDeck;
+    private DeckRepository $deckRepository;
 
-    public function __construct(AppEntityManager $em, RandomizeDeck $randomizeDeck)
+    public function __construct(AppEntityManager $em,DeckRepository $deckRepository, RandomizeDeck $randomizeDeck)
     {
         $this->em = $em;
         $this->randomizeDeck = $randomizeDeck;
+        $this->deckRepository = $deckRepository;
     }
 
     public function randomize($uuid): Deck
     {
-        $deckRepository = $this->em->getRepository(Deck::class);
-        $deck = $deckRepository->find($uuid);
+        $deck = $this->deckRepository->find($uuid);
         if (null === $deck) {
             throw new DeckNotExist();
         }

@@ -2,6 +2,8 @@
 
 
 use App\Domain\CardGame\Deck\RandomizeDeck;
+use App\Domain\CardGame\DeckBuilder;
+use App\Domain\CardGame\Entity\Deck;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\DataFixtures\DeckMother;
 
@@ -19,8 +21,8 @@ class RandomizeDeckTest  extends KernelTestCase
 
     public function testRandomizeDeck()
     {
-        $deckBuilderMock = $this->createMock(\App\Domain\CardGame\DeckBuilder::class);
-        $deckMock = $this->createMock(\App\Domain\CardGame\Entity\Deck::class);
+        $deckBuilderMock = $this->createMock(DeckBuilder::class);
+        $deckMock = $this->createMock(Deck::class);
 
         $deck = $this->deckMother->createDeck();
         $deckMock
