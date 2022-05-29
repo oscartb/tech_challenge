@@ -87,6 +87,15 @@ class Card extends AggregateRoot
         );
     }
 
+    public function update($name, $damage, $hp): self
+    {
+        $this->name = $name;
+        $this->damage = $damage;
+        $this->HP = $hp;
+
+        return $this;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
