@@ -1,0 +1,335 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Zinio server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Swagger Zinio",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:260",
+  "basePath": "/api/",
+  "tags": [
+    {
+      "name": "card",
+      "description": "Everything about your Cards"
+    },
+    {
+      "name": "deck",
+      "description": "Everything about your Decks"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/card": {
+      "put": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Add a new card",
+        "description": "",
+        "operationId": "addCard",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Card object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Card"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation: created"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/card/{uuid}": {
+      "post": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Update a card",
+        "description": "Update a card",
+        "operationId": "updateCard",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "Uuid of card that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Card object that needs to be update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Card"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation: updated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Delete a card",
+        "description": "Delete a card",
+        "operationId": "deleteCard",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "Uuid of card that needs to be deleted",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation: deleted"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/deck": {
+      "put": {
+        "tags": [
+          "deck"
+        ],
+        "summary": "Add a new deck",
+        "description": "Add a new deck",
+        "operationId": "addDeck",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation: created"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/deck/{uuid}": {
+      "get": {
+        "tags": [
+          "deck"
+        ],
+        "summary": "Returns all cards of the given deck",
+        "description": "Get all cards",
+        "operationId": "getDeck",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "Uuid of deck that needs to be returned",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "additionalProperties": false,
+              "items": {
+                "$ref": "#/definitions/Deck"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/deck/randomize/{uuid}": {
+      "post": {
+        "tags": [
+          "deck"
+        ],
+        "summary": "Randomizes all cards of the given deck",
+        "description": "Randomizes all cards of the given deck",
+        "operationId": "postDeck",
+        "consumes": [
+          "application/ld+json"
+        ],
+        "produces": [
+          "application/ld+json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "Uuid of deck that needs to be randomized",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "zinio_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://zinio.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:zinio": "modify  auth in your account to be implemented",
+        "read:zinio": "read auth in your account to be implemented"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Card": {
+      "type": "object",
+      "required": [
+        "name",
+        "HP",
+        "damage"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Obi the cheap"
+        },
+        "HP": {
+          "type": "integer",
+          "description": "Health points",
+          "example": 101
+        },
+        "damage": {
+          "type": "integer",
+          "description": "Damage points",
+          "example": 9
+        }
+      }
+    },
+    "Deck": {
+      "type": "object",
+      "description": "Collection of cards",
+      "required": [
+        "id",
+        "name",
+        "HP",
+        "damage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "08b37f2b-8ec5-4535-abe1-3bef1b788e3b",
+          "description": "Card uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "C3PO the exciting"
+        },
+        "HP": {
+          "type": "integer",
+          "description": "Health points",
+          "example": 82
+        },
+        "damage": {
+          "type": "integer",
+          "description": "Damage points",
+          "example": 3
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

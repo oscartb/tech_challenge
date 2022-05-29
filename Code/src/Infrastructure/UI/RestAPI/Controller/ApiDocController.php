@@ -14,7 +14,7 @@ class ApiDocController extends AbstractController
      * @Route("api/doc", name="api_doc")
      */
     public function apiDoc(){
-        $ymlContents = file_get_contents(__DIR__ . '/../Spec/open-api.yml');
+        $ymlContents = file_get_contents(__DIR__ . '/../Spec/open-api.json');
         $parsedYml = Yaml::parse($ymlContents);
         return new JsonResponse($parsedYml);
 }
