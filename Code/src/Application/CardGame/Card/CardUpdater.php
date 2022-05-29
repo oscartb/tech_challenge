@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace App\Application\CardGame\Card;
 
 use App\Domain\CardGame\Entity\Card;
-use App\Domain\Shared\Bus\Event\EventBus;
 use App\Infrastructure\Persistance\Doctrine\CardRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
 
 class CardUpdater
 {
 
-    //TODO: Abstraction from doctrine
-    private EntityManagerInterface $em;
+    private AppEntityManager $em;
     private CardRepository $cardRepository;
 
-    public function __construct(EntityManagerInterface $em, CardRepository $cardRepository)
+    public function __construct(AppEntityManager $em, CardRepository $cardRepository)
     {
         $this->em = $em;
         $this->cardRepository = $cardRepository;
@@ -26,7 +24,6 @@ class CardUpdater
     {
         $card = $this->cardRepository->find($uuid);
         $card->update($name, $damage, $HP);
-
         $this->em->flush();
 
         return $card;

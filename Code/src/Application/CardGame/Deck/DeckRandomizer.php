@@ -4,16 +4,16 @@ namespace App\Application\CardGame\Deck;
 
 use App\Domain\CardGame\Deck\RandomizeDeck;
 use App\Domain\CardGame\Entity\Deck;
+use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DeckRandomizer
 {
 
-    //TODO: Abstraction from doctrine
-    private EntityManagerInterface $em;
+    private AppEntityManager $em;
     private RandomizeDeck $randomizeDeck;
 
-    public function __construct(EntityManagerInterface $em, RandomizeDeck $randomizeDeck)
+    public function __construct(AppEntityManager $em, RandomizeDeck $randomizeDeck)
     {
         $this->em = $em;
         $this->randomizeDeck = $randomizeDeck;

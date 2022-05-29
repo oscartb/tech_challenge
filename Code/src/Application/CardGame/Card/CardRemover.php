@@ -2,20 +2,17 @@
 
 namespace App\Application\CardGame\Card;
 
-use App\Domain\CardGame\DomainEvent\CardRemovedDomainEvent;
 use App\Domain\CardGame\Entity\Card;
 use App\Domain\Shared\Bus\Event\EventBus;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Domain\Shared\ValueObject\Uuid;
+use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
 
 class CardRemover
 {
 
     private EventBus $eventBus;
-    //TODO: Abstraction from doctrine
-    private EntityManagerInterface $em;
+    private AppEntityManager $em;
 
-    public function __construct(EntityManagerInterface $em, EventBus $eventBus)
+    public function __construct(AppEntityManager $em, EventBus $eventBus)
     {
         $this->eventBus = $eventBus;
         $this->em = $em;

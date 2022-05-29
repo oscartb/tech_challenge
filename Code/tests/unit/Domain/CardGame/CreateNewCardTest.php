@@ -1,6 +1,7 @@
 <?php
 
 use App\Application\CardGame\Card\CardCreator;
+use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Domain\CardGame\Entity\Card;
 use PHPUnit\Framework\Assert;
@@ -10,11 +11,11 @@ class CreateNewCardTest  extends KernelTestCase
 
     public function testCreateNewCardTest()
     {
-        $entityManagerMock = $this->createMock(\Doctrine\ORM\EntityManager::class);
+        $entityManagerMock = $this->createMock(AppEntityManager::class);
         $eventBusMock  = $this->createMock(App\Domain\Shared\Bus\Event\EventBus::class);
 
         $entityManagerMock->expects($this->exactly(1))
-            ->method('persist')
+            ->method('save')
             ->with($this->isInstanceOf(Card::class));
 
         $sut = new CardCreator($entityManagerMock, $eventBusMock);
