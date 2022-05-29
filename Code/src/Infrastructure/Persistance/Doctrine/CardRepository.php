@@ -46,7 +46,7 @@ class CardRepository extends ServiceEntityRepository
         $rsm->addFieldResult('card', 'damage', 'damage');
 
         return $this->getEntityManager()->createNativeQuery("
-            SELECT * FROM {$table} p ORDER BY RAND() LIMIT 0, {$quantity}
+            SELECT * FROM {$table} c  WHERE marked_for_removal = 0 ORDER BY RAND() LIMIT 0, {$quantity}
         ", $rsm);
     }
 }

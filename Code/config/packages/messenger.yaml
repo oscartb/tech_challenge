@@ -1,6 +1,5 @@
 framework:
     messenger:
-        # The bus that is going to be injected when injecting MessageBusInterface
         default_bus: command.bus
         buses:
             command.bus:
@@ -11,8 +10,6 @@ framework:
                 middleware:
                     - validation
             event.bus:
-                # the 'allow_no_handlers' middleware allows to have no handler
-                # configured for this bus without throwing an exception
                 default_middleware: allow_no_handlers
                 middleware:
                     - validation

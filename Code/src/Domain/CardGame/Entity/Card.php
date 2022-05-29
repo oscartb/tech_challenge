@@ -43,6 +43,11 @@ class Card extends AggregateRoot
      */
     private $decks;
 
+    /**
+     * @ORM\Column(type="boolean" ,options={"default" : 0})
+     */
+    private bool $markedForRemoval = false;
+
     public function __construct(
         string $name,
         int $damage,
@@ -54,6 +59,7 @@ class Card extends AggregateRoot
         $this->damage = $damage;
         $this->HP = $hp;
         $this->decks = new ArrayCollection();
+        $this->markedForRemoval = false;
     }
 
     public static function create(
@@ -63,7 +69,6 @@ class Card extends AggregateRoot
     ): Card
     {
         $card = new self($name, $damage, $hp);
-
         $card->record(
             new CardCreatedDomainEvent(
                 $card->getId(), $card->getName(), $card->getDamage(), $card->getHP()
@@ -103,7 +108,7 @@ class Card extends AggregateRoot
     }
 
     /**
-     * @return Collection|Deck[]
+     * @return Collection
      */
     public function getDecks(): Collection
     {
@@ -127,5 +132,20 @@ class Card extends AggregateRoot
         }
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMarkedForRemoval(): bool
+    {
+        return $this->markedForRemoval;
+    }
+
+
+
+    public function markCardToBeRemoved()
+    {
+        $this->markedForRemoval = true;
     }
 }

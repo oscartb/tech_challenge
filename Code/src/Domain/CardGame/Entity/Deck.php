@@ -33,7 +33,7 @@ class Deck extends AggregateRoot
         $this->cards = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         $uuid = new Uuid($this->id);
         return $uuid->value();

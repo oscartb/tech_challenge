@@ -19,13 +19,9 @@ services:
          tags: [ 'controller.service_arguments' ]
 
     _instanceof:
-        # all services implementing the CommandHandlerInterface
-        # will be registered on the command.bus bus
         App\Domain\Shared\Bus\Command\CommandHandler:
             tags: [ { name: messenger.message_handler, bus: command.bus } ]
 
-        # while those implementing QueryHandlerInterface will be
-        # registered on the query.bus bus
         App\Domain\Shared\Bus\Query\QueryHandler:
             tags: [ { name: messenger.message_handler, bus: query.bus } ]
 
@@ -38,6 +34,6 @@ services:
     App\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
         arguments: ['@query.bus']
 
-    App\Infrastructure\Bus\Event\InMemorySymfonyEventBuss:
+    App\Infrastructure\Bus\Event\InMemorySymfonyEventBus:
         arguments: ['@event.bus']
 
