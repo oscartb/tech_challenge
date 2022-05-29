@@ -2,10 +2,8 @@
 
 namespace App\Application\CardGame\Deck;
 
-use App\Domain\CardGame\DeckBuilder;
-use App\Domain\CardGame\Entity\Card;
+use App\Domain\CardGame\Deck\RandomizeDeck;
 use App\Domain\CardGame\Entity\Deck;
-use App\Domain\Shared\Bus\Event\EventBus;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DeckRandomizer
@@ -13,22 +11,19 @@ class DeckRandomizer
 
     //TODO: Abstraction from doctrine
     private EntityManagerInterface $em;
-    private DeckBuilder $deckBuilder;
+    private RandomizeDeck $randomizeDeck;
 
-    public function __construct(EntityManagerInterface $em, DeckBuilder $deckBuilder)
+    public function __construct(EntityManagerInterface $em, RandomizeDeck $randomizeDeck)
     {
         $this->em = $em;
-        $this->deckBuilder = $deckBuilder;
+        $this->randomizeDeck = $randomizeDeck;
     }
 
     public function randomize($uuid): Deck
     {
-        $newDeck = $this->deckBuilder->createDeck();
         $deckRepository = $this->em->getRepository(Deck::class);
-        /**@var Deck $deck*/
         $deck = $deckRepository->find($uuid);
-        $deck->removeAllCards();
-        $deck->addCards($newDeck->getCards()->toArray());
+        $deck = $this->randomizeDeck->randomize($deck);
 
         $this->em->flush();
 
