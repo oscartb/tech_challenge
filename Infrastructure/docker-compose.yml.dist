@@ -29,8 +29,8 @@ services:
       # MacOS: host.docker.internal
       ###< XDEBUG 3 ###
     environment:
-      XDEBUG_CLIENT_HOST: 172.19.0.1
-      XDEBUG_CLIENT_PORT: 9005
+      XDEBUG_CLIENT_HOST: $XDEBUG_CLIENT_HOST
+      XDEBUG_CLIENT_PORT: $XDEBUG_CLIENT_PORT
       PHP_IDE_CONFIG: serverName=Docker
     volumes:
       - ../Code/:/appdata/www
@@ -49,7 +49,7 @@ services:
     ports:
       - "3666:3306"
     environment:
-      MYSQL_DATABASE: symfonyos_db
+      MYSQL_DATABASE: zinio_db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root

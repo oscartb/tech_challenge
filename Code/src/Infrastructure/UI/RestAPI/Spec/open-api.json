@@ -103,6 +103,9 @@
           },
           "405": {
             "description": "Invalid input"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       },
@@ -135,6 +138,9 @@
           },
           "405": {
             "description": "Invalid input"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -200,6 +206,9 @@
           },
           "405": {
             "description": "Invalid input"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -234,6 +243,9 @@
           },
           "405": {
             "description": "Invalid input"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }

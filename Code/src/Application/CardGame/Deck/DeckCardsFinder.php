@@ -8,6 +8,8 @@ use App\Infrastructure\Persistance\Doctrine\DeckRepository;
 
 class DeckCardsFinder
 {
+    private DeckRepository $repository;
+
     public function __construct(DeckRepository $repository)
     {
         $this->repository = $repository;
