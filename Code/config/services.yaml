@@ -18,6 +18,12 @@ services:
          resource: '../src/Infrastructure/UI/'
          tags: [ 'controller.service_arguments' ]
 
+    entity_manager_decorator:
+        public: false
+        class: App\Infrastructure\Symfony\Doctrine\AppEntityManager
+        decorates: doctrine.orm.default_entity_manager
+        arguments: [ "@entity_manager_decorator.inner" ]
+
     _instanceof:
         App\Domain\Shared\Bus\Command\CommandHandler:
             tags: [ { name: messenger.message_handler, bus: command.bus } ]
