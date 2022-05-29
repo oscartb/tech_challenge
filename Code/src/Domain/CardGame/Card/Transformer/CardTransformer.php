@@ -18,7 +18,7 @@ class CardTransformer
         ];
     }
 
-    public function transformFromCollection(array $cardCollection)
+    public function transformFromCollection(array $cardCollection): array
     {
         $transformedCollection = [];
         foreach($cardCollection as $card){

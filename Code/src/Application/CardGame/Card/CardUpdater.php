@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\CardGame\Card;
 
+use App\Domain\CardGame\Card\CardNotExist;
 use App\Domain\CardGame\Entity\Card;
 use App\Infrastructure\Persistance\Doctrine\CardRepository;
 use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
@@ -23,6 +24,10 @@ class CardUpdater
     public function update(string $uuid, string $name, int $damage, int $HP): ?Card
     {
         $card = $this->cardRepository->find($uuid);
+        if (null === $card) {
+            throw new CardNotExist();
+        }
+
         $card->update($name, $damage, $HP);
         $this->em->flush();
 

@@ -2,10 +2,10 @@
 
 namespace App\Application\CardGame\Deck;
 
+use App\Domain\CardGame\Deck\DeckNotExist;
 use App\Domain\CardGame\Deck\RandomizeDeck;
 use App\Domain\CardGame\Entity\Deck;
 use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 
 class DeckRandomizer
 {
@@ -23,6 +23,10 @@ class DeckRandomizer
     {
         $deckRepository = $this->em->getRepository(Deck::class);
         $deck = $deckRepository->find($uuid);
+        if (null === $deck) {
+            throw new DeckNotExist();
+        }
+
         $deck = $this->randomizeDeck->randomize($deck);
 
         $this->em->flush();

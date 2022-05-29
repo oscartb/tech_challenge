@@ -35,6 +35,5 @@ class CardUpdaterTest extends KernelTestCase
         $newCard  = $this->cardMother->createRandomCard();
         $updatedCard = $sut->update($card->getId(), $newCard->getName(), $newCard->getDamage(), $newCard->getHP());
         $this->assertNotEquals([$oldName, $oldDamage, $oldHP], [$updatedCard->getName(), $updatedCard->getDamage(), $updatedCard->getHP()]);
-
     }
 }

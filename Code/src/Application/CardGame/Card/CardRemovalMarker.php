@@ -3,10 +3,10 @@
 namespace App\Application\CardGame\Card;
 
 use App\Application\CardGame\Deck\Command\RandomizeDeckCommand;
+use App\Domain\CardGame\Card\CardNotExist;
 use App\Domain\CardGame\Entity\Card;
 use App\Domain\Shared\Bus\Command\CommandBus;
 use App\Infrastructure\Symfony\Doctrine\AppEntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 
 class CardRemovalMarker
 {
@@ -24,6 +24,9 @@ class CardRemovalMarker
     {
         $cardRepository = $this->em->getRepository(Card::class);
         $card = $cardRepository->findOneBy(['id' => $uuid]);
+        if (null === $card) {
+            throw new CardNotExist();
+        }
 
         $card->markCardToBeRemoved();
         $this->em->flush();
