@@ -1,4 +1,4 @@
-#Zinio  | Tech Challenge
+# Zinio  | Tech Challenge
 
 ###  👩‍💻 Installation
 
