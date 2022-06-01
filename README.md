@@ -15,6 +15,18 @@ host port: 3666
 database name: zinio_db
 ```
 
+### Second iteration objective
+After a few days, I revisited the challenge and I found things I'd like to improve. One thing I've learned is that before close a project like that you need a couple of days and look at it with a fresh perspective.
+
+**Main goals:**
+
+* Complete the testing suite. 
+* Cleanliness. Remove comments and unused stuff :/
+* Revisit Doctrine's entity manager decorator. I never did a think like that before. For sure there are better ways. Take a look and analyze.
+* Coherence, if I passed the entity repository to almost every application service, I have to do it in all of them and do not get the repository from the manager. 
+* Use  strategy pattern to generate names using multiple strategies
+* Improve the Readme, was poor.
+
 ### Explanation about some technical decisions
 I decided to invest time doing a CQRS application and trying to respect SOLID principles. I was asked about related terminology in the technical interview I had, so I think is worth it.
 
