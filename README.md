@@ -20,10 +20,11 @@ After a few days, I revisited the challenge and I found things I'd like to impro
 
 **Main goals:**
 
+* Add VOs in order to avoid primitive obsession.
 * Complete the testing suite. 
 * Cleanliness. Remove comments and unused stuff :/
 * Revisit Doctrine's entity manager decorator. I never did a think like that before. For sure there are better ways. Take a look and analyze.
-* Coherence, if I passed the entity repository to almost every application service, I have to do it in all of them and do not get the repository from the manager. 
+* Coherence, if I passed the entity repository to almost every application service, I should do it in all of them and do not get the repository from the manager. 
 * Use  strategy pattern to generate names using multiple strategies
 * Improve the Readme, was poor.
 
