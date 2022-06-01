@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Shared;
@@ -7,7 +8,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use ReflectionClass;
 use RuntimeException;
-//use function Lambdish\Phunctional\filter;
 
 final class Utils
 {
@@ -71,13 +71,6 @@ final class Utils
         return $results;
     }
 
-/*    public static function filesIn(string $path, string $fileType): array
-    {
-        return filter(
-            static fn(string $possibleModule) => strstr($possibleModule, $fileType),
-            scandir($path)
-        );
-    }*/
 
     public static function extractClassName(object $object): string
     {

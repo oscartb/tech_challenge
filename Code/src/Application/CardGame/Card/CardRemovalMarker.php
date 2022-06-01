@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\CardGame\Card;
 
 use App\Application\CardGame\Deck\Command\RandomizeDeckCommand;

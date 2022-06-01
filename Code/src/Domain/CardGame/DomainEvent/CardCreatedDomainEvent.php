@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\CardGame\DomainEvent;
 
 use App\Domain\Shared\Bus\Event\DomainEvent;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\CardGame\Card\Command;
 
 use App\Application\CardGame\Card\CardRemovalMarker;
