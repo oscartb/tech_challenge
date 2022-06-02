@@ -34,6 +34,9 @@ services:
         App\Domain\Shared\Bus\Event\DomainEventSubscriber:
             tags: [ { name: messenger.message_handler, bus: event.bus } ]
 
+        App\Domain\CardGame\Card\RandomNaming\NamingStrategy:
+            tags: [{name: naming.strategy}]
+
     App\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
         arguments: ['@command.bus']
 
@@ -42,4 +45,8 @@ services:
 
     App\Infrastructure\Bus\Event\InMemorySymfonyEventBus:
         arguments: ['@event.bus']
+
+    App\DataFixtures\Dictionary:
+        arguments:
+            - !tagged_iterator { tag: naming.strategy }
 

@@ -1,25 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 class Dictionary
 {
-    public static function getRandomName()
+    private iterable $namingStrategies;
+
+    public function __construct(iterable $namingStrategies)
     {
-        $nameDictionary = self::loadNameDictionary();
-        $adjectiveDictrionary = self::loadAdjectiveDictionary();
-        return $nameDictionary[rand(0, count($nameDictionary) - 1)] . " the " . $adjectiveDictrionary[rand(0, count($adjectiveDictrionary) - 1)];
+        $this->namingStrategies = iterator_to_array($namingStrategies);
     }
 
-    private static function loadNameDictionary()
+    public function getRandomName()
     {
-        $csv = array_map('str_getcsv', file(__DIR__ . '/names.csv'));
-        return reset($csv);
-    }
-
-    private static function loadAdjectiveDictionary()
-    {
-        $csv = array_map('str_getcsv', file(__DIR__ . '/adjectives.csv'));
-        return reset($csv);
+        $randomSelectedStrategy = $this->namingStrategies[rand(0, count($this->namingStrategies) - 1)] ;
+        return $randomSelectedStrategy->getRandomName();
     }
 }
