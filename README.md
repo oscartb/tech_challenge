@@ -16,7 +16,7 @@ database name: zinio_db
 ```
 
 ### Second iteration objective
-After a few days, I revisited the challenge and I found things I'd like to improve. One thing I've learned is that before close a project like that you need a couple of days and look at it with a fresh perspective.
+After a few days, I revisited the challenge, and I found things I'd like to improve. One thing I've learned is that before close a project like that you need a couple of days and look at it with a fresh perspective.
 
 **Main goals:**
 
@@ -50,6 +50,59 @@ I tried to decouple the code from doctrine using a decorator. It is not possible
  */
 ```
 I never did it before. In a real project I would do a lot of research before taking a decision like this one.
+
+* How I did it  in the past:
+
+Saving in repository:
+```
+class GameRepository extends ServiceEntityRepository
+{
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Game::class);
+    }
+
+    public function save(Game $game, $user = null): void
+    {
+        $game->record(new GameWasCreatedMessage($game, $user));
+        $game->setEntityIsReadyToPersist(true);
+        $this->_em->persist($game);
+        $this->_em->flush();
+    }
+```
+This way we have to be sure the entity is always saved using the save method, so we add a prop "setEntityIsReadyToPersist" to check it and throw an error otherwise.
+```
+public function preFlush(PreFlushEventArgs $args): void
+{
+        [...]
+        foreach ($entities as $entity) {
+            [...]
+            if(in_array(EntityWithSaveMethodInterface::class, class_implements($entity), true) && $entity->getEntityIsReadyToPersist() === false){
+                throw new \Exception(sprintf('Entity %s cannot be saved directly. Use the save method', get_class($entity)), 400);
+            }
+
+            $this->entities->add($entity);
+        }
+    }
+```
+Dispatching stored domain events using doctrine lifecycle events
+```
+    public function postFlush(PostFlushEventArgs $args): void
+    {
+        $events = new ArrayCollection();
+        foreach ($this->entities as $entity) {
+            foreach ($entity->getRecordedEvents() as $domainEvent) {
+                $events->add($domainEvent);
+            }
+            $entity->clearRecordedEvents();
+        }
+        foreach ($events as $event) {
+            $this->bus->dispatch($event);
+        }
+    }
+```
+
 
 ### 👀 API documentation
 A simple HTML page will fetch the documentation from the Open API specifications.
