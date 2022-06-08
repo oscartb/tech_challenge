@@ -37,3 +37,11 @@ services:
 
     App\DataFixtures\DeckMother:
         public: true
+
+    _instanceof:
+        App\Domain\CardGame\Card\RandomNaming\NamingStrategy:
+            tags: [{name: naming.strategy}]
+
+    App\DataFixtures\Dictionary:
+        arguments:
+            - !tagged_iterator { tag: naming.strategy }
