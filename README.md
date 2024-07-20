@@ -15,6 +15,9 @@ host port: 3666
 database name: zinio_db
 ```
 
+### Xdebug configuration
+Xdebug uses host.docker.internal to reference the host machine. Create a server named fpm-be and map the path {projectRoot}/Code to /appdata/www.
+
 ### Explanation about some technical decisions
 I decided to invest time doing a CQRS application and trying to respect SOLID principles. I was asked about related terminology in the technical interview I had, so I think is worth it.
 
